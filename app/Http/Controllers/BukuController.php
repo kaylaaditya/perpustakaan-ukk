@@ -85,8 +85,9 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->id;
         $buku = Buku::findOrFail($id);
         $data = [
             'buku' => $buku

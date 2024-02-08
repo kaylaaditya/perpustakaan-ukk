@@ -32,7 +32,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/admin', 'DashboardController@index')->name('admin');
     Route::get('/tabel1', 'BukuController@index')->name('layouts.tabel-data');
-    Route::resource('buku', BukuController::class);
+    // Route::resource('buku', BukuController::class);
     Route::get('buku/edit', 'BukuController@edit')->name('buku.edit');
     Route::get('buku/update', 'BukuController@update')->name('buku.update');
 

@@ -31,7 +31,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 d-flex justify-content-start align-items-center">
-                            <a href="{{ 'form' }}" class="btn btn-primary btn-sm mt-2">
+                            <a href="{{ route('layouts.form-data')  }}" class="btn btn-primary btn-sm mt-2">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
                         </div>
@@ -150,11 +150,10 @@
                 ],
             });
 
-            $('#buku-table tbody').on('click', 'button[name="editBtn"]', function(e) {
-                e.preventDefault();
-                var data = t.row($(this).parents('tr')).data();
-                window.location = "{{ route('buku.edit') }}?id=" + data['id'];
-            });
+            $('#buku-table tbody').on('click', 'button[name="editBtn"]', function() {
+            var data = t.row($(this).parents('tr')).data(); // var data per row
+            window.location = "{{ route('buku.edit') }}?id=" + data['id'];
+        });
 
             $('#buku-table tbody').on('click', 'button[name="deleteBtn"]', function() {
                 var data = t.row($(this).parents('tr')).data();

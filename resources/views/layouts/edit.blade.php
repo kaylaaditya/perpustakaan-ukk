@@ -34,24 +34,26 @@
                         <div class="card">
                             <div class="card-body">
                                 <p>Judul</p>
-                                <input type="text" class="form-control" id="judul" name="judul" required>
+                                <input type="text" class="form-control" id="judul" name="judul" required value="{{$buku->judul}}">
+
                                 <p class="mt-2">Penulis</p>
-                                <input type="text" class="form-control" id="penulis" name="penulis" required>
+                                <input type="text" class="form-control" id="penulis" name="penulis" required value="{{$buku->penulis}}">
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p class="mt-2">Penerbit</p>
-                                        <input type="text" class="form-control" id="penerbit" name="penerbit" required>
+                                        <input type="text" class="form-control" id="penerbit" name="penerbit" required value="{{$buku->penerbit}}">
                                     </div>
                                     <div class="col-md-6">
                                         <p class="mt-2">Tahun Terbit</p>
-                                        <input type="number" class="form-control text-left" id="tahun_terbit" name="tahun_terbit" required>
+                                        <input type="number" class="form-control text-left" id="tahun_terbit" name="tahun_terbit" required value="{{$buku->tahun_terbit}}">
                                     </div>
                                     <p class="mt-2">Gambar</p>
+                                    <img src="{{ asset('images/books/' . $buku->foto) }}" alt="Gambar Buku">
                                     <input type="file" class="form-control" id="foto" name="foto" required>
 
                                     <p class="mt-2">Stok</p>
-                                    <input type="text" class="form-control" id="stok" name="stok" required>
+                                    <input type="text" class="form-control" id="stok" name="stok" required value="{{$buku->stok}}">
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
