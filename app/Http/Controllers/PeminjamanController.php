@@ -53,6 +53,7 @@ $pinjam = Peminjaman::select('peminjaman.*', 'judul')
             'user_id' => 'required',
             'nama_peminjam' => 'required',
             'tgl_pinjam' => 'required|date',
+            'batas_tgl_pengembalian' => 'required|date',
         ]);
         Peminjaman::create($request->all());
 

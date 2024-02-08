@@ -44,7 +44,7 @@
                                         <i class="fas fa-search fa-fw"></i>
                                     </button>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,6 +63,9 @@
                                         <th>Penulis</th>
                                         <th>Penerbit</th>
                                         <th>Tahun Terbit</th>
+                                        <th>Gambar</th>
+                                        <th>Stok</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -98,35 +101,86 @@
     <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-          $('#buku-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{!! route('api.buku') !!}",
-            columns: [{
-                data: 'id',
-                name: 'id'
-              },
-              {
-                data: 'judul',
-                name: 'judul'
-              },
-              {
-                data: 'penulis',
-                name: 'penulis'
-              },
-              {
-                data: 'penerbit',
-                name: 'penerbit'
-              },
-              {
-                data: 'tahun_terbit',
-                name: 'tahun_terbit'
-              },
-              ]
-      });
-    });
-  </script>
-    
+            var t = $('#buku-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{!! route('api.buku') !!}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'penulis',
+                        name: 'penulis'
+                    },
+                    {
+                        data: 'penerbit',
+                        name: 'penerbit'
+                    },
+                    {
+                        data: 'tahun_terbit',
+                        name: 'tahun_terbit'
+                    },
+                    {
+                        data: 'foto',
+                        name: 'foto'
+                    },
+                    {
+                        data: 'stok',
+                        name: 'stok'
+                    },
+                    {
+                        data: null,
+                        defaultContent: `<div class="btn-group" role="group">
+                    <button class="btn btn-info btn-xs ml-1" data-toggle="modal" data-target="#exampleModal" name="previewBtn">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button class="btn btn-primary btn-xs ml-1" name="editBtn">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-xs ml-1" name="deleteBtn">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>`,
+                    },
+                ],
+            });
+
+            $('#buku-table tbody').on('click', 'button[name="editBtn"]', function(e) {
+                e.preventDefault();
+                var data = t.row($(this).parents('tr')).data();
+                window.location = "{{ route('buku.edit') }}?id=" + data['id'];
+            });
+
+            $('#buku-table tbody').on('click', 'button[name="deleteBtn"]', function() {
+                var data = t.row($(this).parents('tr')).data();
+                if (confirm(`Apakah anda yakin mau menghapus buku ini
+            Judul: ${data['judul']}
+            Penulis: ${data['penulis']}
+            Penerbit: ${data['penerbit']}
+            Tahun Terbit: ${data['tahun_terbit']}
+        `)) {
+                    const response = fetch(`/buku/delete/${data['id']}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    response.then(res => res.json()).then(d => {
+                        window.location = "{!! route('layouts.tabel-data') !!}";
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- jajalen woooooooooy -->
+
+
+
 
 </body>
 

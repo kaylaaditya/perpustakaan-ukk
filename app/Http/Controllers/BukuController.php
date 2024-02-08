@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
@@ -49,11 +50,22 @@ class BukuController extends Controller
             'penulis' => 'required',
             'penerbit' => 'required',
             'tahun_terbit' => 'required|numeric',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'stok' => 'required',
         ]);
 
-        Buku::create($request->all());
+        $buku = new Buku($request->all());
 
-        return redirect()->route('layouts.tabel-data')->with('sukses', 'Buku berhasil ditambahkan.');
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoName = time() . '.' . $foto->getClientOriginalExtension();
+            $foto->move(public_path('images/books'), $fotoName);
+            $buku->foto = $fotoName;
+        }
+
+        $buku->save();
+
+        return redirect('/buku')->with('success', 'Buku berhasil ditambahkan');
     }
 
     /**
@@ -75,7 +87,12 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $data = [
+            'buku' => $buku
+        ];
+        
+        return view('layouts.edit', $data);
     }
 
     /**
@@ -87,7 +104,28 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'judul' => 'required',
+            'penulis' => 'required',
+            'penerbit' => 'required',
+            'tahun_terbit' => 'required|numeric',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'stok' => 'required',
+        ]);
+
+        $buku = Buku::findOrFail($id);
+        $buku->update($request->all());
+
+        if ($request->hasFile('foto')) {
+            // Proses update gambar jika ada perubahan
+            $foto = $request->file('foto');
+            $fotoName = time() . '.' . $foto->getClientOriginalExtension();
+            $foto->move(public_path('images/books'), $fotoName);
+            $buku->foto = $fotoName;
+            $buku->save();
+        }
+
+        return redirect('/layouts.table-data')->with('success', 'Buku berhasil diperbarui');
     }
 
     /**
@@ -98,12 +136,22 @@ class BukuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
+
+        return redirect('/layouts.tabel-data')->with('success', 'Buku berhasil dihapus');
     }
 
-    public function laporanPerpustakaan()
-{
-    $dataPerpustakaan = Buku::all();
-    return view('layouts.laporan_perpustakaan', ['dataPerpustakaan' => $dataPerpustakaan]);
-}
+    public function apiLaporan()
+    {
+        $dataPerpustakaan = Peminjaman::selectRaw('peminjaman.id, users.nama_lengkap as nama_peminjam, buku.judul, tgl_pinjam, tgl_pengembalian, status_peminjam')
+            ->join('buku', 'buku.id', '=', 'buku_id')
+            ->join('users', 'users.id', '=', 'user_id');
+        return datatables()->of($dataPerpustakaan)->toJson();
+    }
+
+    public function indexLaporan()
+    {
+        return view('layouts.laporan_perpustakaan');
+    }
 }

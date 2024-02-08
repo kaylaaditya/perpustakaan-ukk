@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 Route::get('buku', 'BukuController@apiBuku')->name('api.buku');
 
+Route::get('laporan', 'BukuController@apiLaporan')->name('api.laporan');
+
 Route::get('pinjam', 'PeminjamanController@apiPinjam')->name('api.pinjam');
 Route::get('pinjamSelect', 'PeminjamanController@apiBukuSelect')->name('api.select.pinjam');
 

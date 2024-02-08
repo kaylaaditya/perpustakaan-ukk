@@ -21,5 +21,6 @@ class Peminjaman extends Model
         'rating',
         'ulasan',
         'status_peminjam',
+        'batas_tgl_pengembalian',
     ];
 }

@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard|PERPUSWEB</title>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0">
     <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
@@ -41,10 +40,13 @@
                                 <p>Buku Id</p>
                                 <select name="buku_id" id="buku_id" class="form-control"></select>
                                 <p>Nama Peminjam</p>
-                                <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam"
-                                    required readonly value="{{ auth()->user()->nama_lengkap }}">
+                                <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" required readonly value="{{ auth()->user()->nama_lengkap }}">
+
                                 <p class="mt-2">Tanggal Pinjam</p>
-                                <input type="date" class="form-control" id="tgl_pinjam" name="tgl_pinjam" required>
+                                <input type="date" class="form-control" id="tgl_pinjam" name="tgl_pinjam" required readonly value="{{ now()->format('Y-m-d') }}">
+
+                                <p class="mt-2">Batas Pengembalian</p>
+                                <input type="date" class="form-control" id="batas_tgl_pengembalian" name="batas_tgl_pengembalian" required readonly value="{{ now()->addDays(5)->format('Y-m-d') }}">
 
                                 <div class="modal-footer justify-content-between">
                                     <div class="ml-2 text-left mt-3 mb-0">
@@ -85,7 +87,7 @@
         </footer>
     </div>
 
-    
+
 
 
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -18,7 +18,7 @@
         @include('layouts.inc_admin.navbar')
         <!-- main sidebar container -->
         @include('layouts.inc_admin.sidebar')
-        
+
         <div class="content-wrapper">
             <div class="content-header">`
                 <div class="container-fluid mb-2">
@@ -27,45 +27,50 @@
                 </div>
             </div>
 
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 @csrf
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="card">
-                        <div class="card-body">
-                            <p>Judul</p>
-                            <input type="text" class="form-control" id="judul" name="judul" required>
-                            <p class="mt-2">Penulis</p>
-                            <input type="text" class="form-control" id="penulis" name="penulis" required>
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>Judul</p>
+                                <input type="text" class="form-control" id="judul" name="judul" required>
+                                <p class="mt-2">Penulis</p>
+                                <input type="text" class="form-control" id="penulis" name="penulis" required>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p class="mt-2">Penerbit</p>
-                                    <input type="text" class="form-control" id="penerbit" name="penerbit" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <p class="mt-2">Tahun Terbit</p>
-                                    <input type="number" class="form-control text-left" id="tahun_terbit" name="tahun_terbit" required>
-                                </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="mt-2">Penerbit</p>
+                                        <input type="text" class="form-control" id="penerbit" name="penerbit" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mt-2">Tahun Terbit</p>
+                                        <input type="number" class="form-control text-left" id="tahun_terbit" name="tahun_terbit" required>
+                                    </div>
+                                    <p class="mt-2">Gambar</p>
+                                    <input type="file" class="form-control" id="foto" name="foto" required>
 
-                            <div class="modal-footer justify-content-between">
-                                <div class="ml-2 text-left mt-3 mb-0">
-                                    <a href="{{ 'tabel1'}}" class="btn btn-danger">
-                                        Kembali
-                                    </a>
+                                    <p class="mt-2">Stok</p>
+                                    <input type="text" class="form-control" id="stok" name="stok" required>
                                 </div>
-                                <div class="mr-2 text-right mt-3 mb-0">
-                                    <button type="submit" class="btn btn-success">
-                                        Submit
-                                    </button>
+
+                                <div class="modal-footer justify-content-between">
+                                    <div class="ml-2 text-left mt-3 mb-0">
+                                        <a href="{{ 'tabel1'}}" class="btn btn-danger">
+                                            Kembali
+                                        </a>
+                                    </div>
+                                    <div class="mr-2 text-right mt-3 mb-0">
+                                        <button type="submit" class="btn btn-success">
+                                            Submit
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
 
 
