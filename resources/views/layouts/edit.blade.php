@@ -29,6 +29,7 @@
 
             <form action=" {{ route('buku.update', $buku->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
+                <!-- @method('PATCH') -->
                 <div class="content">
                     <div class="container-fluid">
                         <div class="card">
@@ -48,13 +49,18 @@
                                         <p class="mt-2">Tahun Terbit</p>
                                         <input type="number" class="form-control text-left" id="tahun_terbit" name="tahun_terbit" required value="{{$buku->tahun_terbit}}">
                                     </div>
-                                    <p class="mt-2">Gambar</p>
-                                    <img src="{{ asset('images/books/' . $buku->foto) }}" alt="Gambar Buku">
-                                    <input type="file" class="form-control" id="foto" name="foto" required>
+                                </div>
+                                <div class="row">
+                                    <p class="mt-2 col-12">Gambar</p>
+                                    <img src="{{ asset('images/books/' . $buku->foto) }}" alt="Gambar Buku" class="col-12" style="max-width: 10vw">
+                                    <input type="file" class="form-control" id="foto" name="foto" class="col-12" required>
+                                </div>
 
+                                <div class="row">
                                     <p class="mt-2">Stok</p>
                                     <input type="text" class="form-control" id="stok" name="stok" required value="{{$buku->stok}}">
                                 </div>
+
 
                                 <div class="modal-footer justify-content-between">
                                     <div class="ml-2 text-left mt-3 mb-0">

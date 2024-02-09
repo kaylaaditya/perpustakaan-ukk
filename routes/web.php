@@ -34,8 +34,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/tabel1', 'BukuController@index')->name('layouts.tabel-data');
     // Route::resource('buku', BukuController::class);
     Route::get('buku/edit', 'BukuController@edit')->name('buku.edit');
-    Route::get('buku/update', 'BukuController@update')->name('buku.update');
-
+    Route::post('buku/update/{id}', 'BukuController@update')->name('buku.update');
+    Route::delete('buku/delete/{id}', 'BukuController@delete')->name('buku.delete');
+    
 
     Route::get('/form', [BukuController::class, 'create'])->name('layouts.form-data');
     Route::post('/form', [BukuController::class, 'store']);

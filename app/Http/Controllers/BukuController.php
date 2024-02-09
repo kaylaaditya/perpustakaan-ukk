@@ -20,8 +20,9 @@ class BukuController extends Controller
 
     public function apiBuku()
     {
-        $buku = Buku::all();
-
+        $buku = Buku::selectRaw("id, judul, penulis, penerbit, tahun_terbit, foto, 
+        concat(stok - (select count(*) from peminjaman where buku.id=buku_id 
+        and tgl_pengembalian is null), '/', stok) stok");
         return datatables()->of($buku)->toJson();
     }
 
@@ -52,6 +53,7 @@ class BukuController extends Controller
             'tahun_terbit' => 'required|numeric',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'stok' => 'required',
+
         ]);
 
         $buku = new Buku($request->all());
@@ -65,7 +67,7 @@ class BukuController extends Controller
 
         $buku->save();
 
-        return redirect('/buku')->with('success', 'Buku berhasil ditambahkan');
+        return redirect()->route('layouts.tabel-data')->with('success', 'Buku berhasil ditambahkan');
     }
 
     /**
@@ -92,7 +94,7 @@ class BukuController extends Controller
         $data = [
             'buku' => $buku
         ];
-        
+
         return view('layouts.edit', $data);
     }
 
@@ -126,7 +128,7 @@ class BukuController extends Controller
             $buku->save();
         }
 
-        return redirect('/layouts.table-data')->with('success', 'Buku berhasil diperbarui');
+        return redirect('/tabel1')->with('success', 'Buku berhasil diperbarui');
     }
 
     /**
@@ -135,12 +137,12 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $buku = Buku::findOrFail($id);
         $buku->delete();
 
-        return redirect('/layouts.tabel-data')->with('success', 'Buku berhasil dihapus');
+        return ['success' => true];
     }
 
     public function apiLaporan()

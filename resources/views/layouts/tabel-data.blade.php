@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard|PERPUSWEB</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -59,11 +60,11 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Gambar</th>
                                         <th>Judul</th>
                                         <th>Penulis</th>
                                         <th>Penerbit</th>
                                         <th>Tahun Terbit</th>
-                                        <th>Gambar</th>
                                         <th>Stok</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -110,6 +111,11 @@
                         name: 'id'
                     },
                     {
+                        render: function(data, type, row) {
+                            return `<img src="{{ asset('images/books/') }}/${row['foto']}" alt="Gambar Buku"/ style="max-width: 60px">`;
+                        }
+                    },
+                    {
                         data: 'judul',
                         name: 'judul'
                     },
@@ -126,18 +132,12 @@
                         name: 'tahun_terbit'
                     },
                     {
-                        data: 'foto',
-                        name: 'foto'
-                    },
-                    {
                         data: 'stok',
                         name: 'stok'
                     },
                     {
                         data: null,
                         defaultContent: `<div class="btn-group" role="group">
-                    <button class="btn btn-info btn-xs ml-1" data-toggle="modal" data-target="#exampleModal" name="previewBtn">
-                        <i class="fa fa-eye"></i>
                     </button>
                     <button class="btn btn-primary btn-xs ml-1" name="editBtn">
                         <i class="fa fa-edit"></i>
@@ -151,9 +151,9 @@
             });
 
             $('#buku-table tbody').on('click', 'button[name="editBtn"]', function() {
-            var data = t.row($(this).parents('tr')).data(); // var data per row
-            window.location = "{{ route('buku.edit') }}?id=" + data['id'];
-        });
+                var data = t.row($(this).parents('tr')).data(); // var data per row
+                window.location = "{{ route('buku.edit') }}?id=" + data['id'];
+            });
 
             $('#buku-table tbody').on('click', 'button[name="deleteBtn"]', function() {
                 var data = t.row($(this).parents('tr')).data();
@@ -176,7 +176,6 @@
             });
         });
     </script>
-    <!-- jajalen woooooooooy -->
 
 
 
