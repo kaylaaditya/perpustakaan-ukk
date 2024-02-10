@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,7 @@ Route::view('/', 'welcome');
 
 
 
-Route::view('register', 'login.register');
+// Route::view('register', 'login.register');
 // Route::view('laporan', 'layouts.laporan');
 // Route::view('peminjam', 'layouts.tabel-pinjam');
 // Route::view('form-pinjam', 'layouts.form-pinjam');
@@ -36,7 +37,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('buku/edit', 'BukuController@edit')->name('buku.edit');
     Route::post('buku/update/{id}', 'BukuController@update')->name('buku.update');
     Route::delete('buku/delete/{id}', 'BukuController@delete')->name('buku.delete');
-    
+
 
     Route::get('/form', [BukuController::class, 'create'])->name('layouts.form-data');
     Route::post('/form', [BukuController::class, 'store']);
@@ -48,4 +49,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/pengembalian/saveData', 'PeminjamanController@saveData')->name('pengembalian.saveData');
 
     Route::get('/laporan_perpustakaan', 'BukuController@indexLaporan')->name('layouts.laporan_perpustakaan');
+
+    Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\Peminjaman;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -65,8 +66,12 @@ $pinjam = Peminjaman::select('peminjaman.*', 'judul')
     {
         $query = $request->query('q');
         if ($query != null) {
-            $buku_list = Buku::where(DB::raw("lower(judul)"), 'like', '%' . $query . '%')
-                ->orWhere(DB::raw("lower(penulis)"), 'like', '%' . $query . '%')
+            $buku_list = Buku::where(function(Builder $query) {
+                    $query->where(DB::raw("lower(judul)"), 'like', '%' . $query . '%')
+                    ->orWhere(DB::raw("lower(penulis)"), 'like', '%' . $query . '%');
+                })
+                ->whereRaw('stok > (select count(*) from peminjaman where buku.id=buku_id 
+                and tgl_pengembalian is null)')
                 ->orderBy('judul');
         } else {
             $buku_list = Buku::orderBy('judul');

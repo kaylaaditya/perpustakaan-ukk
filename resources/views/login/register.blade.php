@@ -38,17 +38,16 @@
                             <p>Halaman Register</p>
                         </div>
                         <div>
-                            <form action="POST" action="">
+                            <form method="POST" action="{{ route('register') }}" id="registrasiForm">
                                 @csrf
-
                                 {{-- USERNAME --}}
                                 <div class="form-group mt-3">
-                                    <label for="email" class="text-md-right">{{ __('Username') }}</label>
+                                    <label for="username" class="text-md-right">{{ __('Username') }}</label>
                                     <div class="">
-                                        <input id="email" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                                        <input id="username" class="form-control @error('username') is-invalid @enderror"
+                                            name="username" value="{{ old('username') }}" required autocomplete="username"
                                             autofocus>
-                                        @error('email')
+                                        @error('username')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -87,13 +86,14 @@
                                 </div>
 
                                 {{-- NAMA LENGKAP --}}
+                                <input type="hidden" name="user_type" value="peminjam">
                                 <div class="form-group mt-3">
                                     <label for="nama_lengkap" class="text-md-right">{{ __('Nama Lengkap   ') }}</label>
                                     <div class="">
-                                        <input id="email" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                                        <input id="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror"
+                                            name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autocomplete="nama_lengkap"
                                             autofocus>
-                                        @error('email')
+                                        @error('nama_lengkap')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -103,12 +103,12 @@
 
                                 {{-- ALAMAT --}}
                                 <div class="form-group mt-3">
-                                    <label for="nama_lengkap" class="text-md-right">{{ __('Alamat   ') }}</label>
+                                    <label for="alamat" class="text-md-right">{{ __('Alamat   ') }}</label>
                                     <div class="">
-                                        <input id="email" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                                        <input id="alamat" class="form-control @error('alamat') is-invalid @enderror"
+                                            name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat"
                                             autofocus>
-                                        @error('email')
+                                        @error('alamat')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -133,6 +133,28 @@
     <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
+
+    <script>
+    function validateForm() {
+        var username = document.getElementById('username').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var nama_lengkap = document.getElementById('nama_lengkap').value;
+        var alamat = document.getElementById('alamat').value;
+
+        // Contoh validasi sederhana
+        if (username === '' || email === '' || password === '' || nama_lengkap === '' || alamat === '') {
+            alert('Mohon isi semua kolom');
+            return;
+        }
+
+        // Proses pendaftaran atau tindakan lainnya dapat ditambahkan di sini
+
+        alert('Pendaftaran berhasil!');
+        document.getElementById('registrasiForm').reset();
+    }
+</script>
+
 
 
 

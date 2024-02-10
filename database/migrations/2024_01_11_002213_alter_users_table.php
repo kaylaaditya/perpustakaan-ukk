@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('nama_lengkap');
             $table->string('alamat')->nullable();
-            $table->string('user_type');
+            $table->string('user_type')->nullable();
         });
     }
 
