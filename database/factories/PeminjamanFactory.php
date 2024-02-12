@@ -22,11 +22,11 @@ class PeminjamanFactory extends Factory
             'user_id' => User::factory(),
             'buku_id' => Buku::factory(),
             'nama_peminjam' => $this->faker->name(),
-            'tgl_pinjam' => $this->faker->date(),
-            'tgl_pengembalian' => $this->faker->date(),
-            'rating' => $this->faker->name(),
-            'ulasan' => $this->faker->name(),
-            'status_peminjam' => $this->faker->name(),
+            'tgl_pinjam' => $this->faker->dateTimeInInterval('-1 year', '-7 month'),
+            'tgl_pengembalian' => $this->faker->dateTimeInInterval('-6 months', '-1 month'),
+            'rating' => $this->faker->numberBetween(1,5),
+            'ulasan' => $this->faker->sentence(),
+            'status_peminjam' => 'sudah dikembalikan',
             
         ];
     }

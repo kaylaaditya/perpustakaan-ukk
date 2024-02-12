@@ -26,6 +26,7 @@ Route::get('laporan', 'BukuController@apiLaporan')->name('api.laporan');
 Route::get('pinjam', 'PeminjamanController@apiPinjam')->name('api.pinjam');
 Route::get('pinjamSelect', 'PeminjamanController@apiBukuSelect')->name('api.select.pinjam');
 Route::get('registerAdmin', 'RegisterAdminController@apiRegister')->name('api.register');
+Route::get('ulasan', 'UlasanController@apiUlasan')->name('api.ulasan');
 
 });
     

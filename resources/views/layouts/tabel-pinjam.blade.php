@@ -64,7 +64,7 @@
                                         <th>Nama Peminjam</th>
                                         <th>Tgl Pinjam</th>
                                         <th>Tgl Pengembalian</th>
-                                        <th>Rating</th>
+                                        <!-- <th>Rating</th> -->
                                         <th>Status Peminjam</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -172,10 +172,10 @@
                         data: 'tgl_pengembalian',
                         name: 'tgl_pengembalian'
                     },
-                    { 
-                        data: 'rating',
-                        name: 'rating'
-                    },
+                    // { 
+                    //     data: 'rating',
+                    //     name: 'rating'
+                    // },
                     {
                         data: 'status_peminjam',
                         name: 'status_peminjam'

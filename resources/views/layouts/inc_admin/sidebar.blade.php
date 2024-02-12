@@ -50,6 +50,12 @@
                         <p>Peminjaman</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{!! route('layouts.tabel-ulasan') !!}" class="nav-link {{ Request::is('ulasan*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Ulasan</p>
+                    </a>
+                </li>
                 @endif
                 @if(auth()->user()->user_type==='admin')
                 <li class="nav-item">

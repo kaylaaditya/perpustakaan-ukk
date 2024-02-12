@@ -4,6 +4,7 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UlasanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,4 +59,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/admin-register-create', [RegisterAdminController::class, 'create'])->name('registerAdmin.create');
     Route::post('/admin-register-store', [RegisterAdminController::class, 'store'])->name('registerAdmin.store');
+
+    Route::get('/ulasan', [UlasanController::class, 'index'])->name('layouts.tabel-ulasan');
 });
