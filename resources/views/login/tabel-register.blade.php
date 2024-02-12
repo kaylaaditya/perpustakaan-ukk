@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 d-flex justify-content-start align-items-center">
-                            <a href="{{ route('registerAdmin')  }}" class="btn btn-primary btn-sm mt-2">
+                            <a href="{{ route('registerAdmin.create')  }}" class="btn btn-primary btn-sm mt-2">
                                 <i class="fas fa-plus"></i> Tambah User
                             </a>
                         </div>

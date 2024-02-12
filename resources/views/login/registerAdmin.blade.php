@@ -38,7 +38,7 @@
                             <p>Halaman Register</p>
                         </div>
                         <div>
-                            <form method="POST" action="{{ route('registerAdmin') }}" id="registrasiForm">
+                            <form method="POST" action="{{ route('registerAdmin.store') }}" id="registrasiForm">
                                 @csrf
                                 {{-- USERNAME --}}
                                 <div class="form-group mt-3">

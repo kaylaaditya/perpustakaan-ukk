@@ -29,7 +29,7 @@ class RegisterAdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('login.registerAdmin');
     }
 
     /**
@@ -60,7 +60,7 @@ class RegisterAdminController extends Controller
 
         ]);
 
-        return redirect()->route('registerAdmin')->with('success', 'Pendaftaran berhasil!');
+        return redirect()->route('login.tabel-register')->with('success', 'Pendaftaran berhasil!');
     }
 
     /**
