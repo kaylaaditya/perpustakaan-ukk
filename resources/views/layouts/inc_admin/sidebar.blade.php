@@ -51,6 +51,14 @@
                     </a>
                 </li>
                 @endif
+                @if(auth()->user()->user_type==='admin')
+                <li class="nav-item">
+                    <a href="{!! route('login.tabel-register') !!}" class="nav-link {{ Request::is('registerAdmin*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Data User</p>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
     </div>

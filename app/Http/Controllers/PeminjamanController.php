@@ -23,12 +23,12 @@ class PeminjamanController extends Controller
     public function apiPinjam(Request $request)
     {
         $queryId = $request->query('id');
-$pinjam = Peminjaman::select('peminjaman.*', 'judul')
-                    ->join('buku', 'buku.id', 'buku_id')
-                    ->where('user_id', $queryId);
+        $pinjam = Peminjaman::select('peminjaman.*', 'judul')
+            ->join('buku', 'buku.id', 'buku_id')
+            ->where('user_id', $queryId);
 
 
-                    return datatables()->of($pinjam)->toJson();
+        return datatables()->of($pinjam)->toJson();
     }
 
     /**
@@ -64,12 +64,12 @@ $pinjam = Peminjaman::select('peminjaman.*', 'judul')
 
     public function apiBukuSelect(Request $request)
     {
-        $query = $request->query('q');
-        if ($query != null) {
-            $buku_list = Buku::where(function(Builder $query) {
-                    $query->where(DB::raw("lower(judul)"), 'like', '%' . $query . '%')
-                    ->orWhere(DB::raw("lower(penulis)"), 'like', '%' . $query . '%');
-                })
+        $queryQ = $request->query('q');
+        if ($queryQ != null) {
+            $buku_list = Buku::where(function (Builder $queryQ) {
+                $queryQ->where(DB::raw("lower(judul)"), 'like', '%' . $queryQ . '%')
+                    ->orWhere(DB::raw("lower(penulis)"), 'like', '%' . $queryQ . '%');
+            })
                 ->whereRaw('stok > (select count(*) from peminjaman where buku.id=buku_id 
                 and tgl_pengembalian is null)')
                 ->orderBy('judul');
@@ -89,7 +89,7 @@ $pinjam = Peminjaman::select('peminjaman.*', 'judul')
         ]);
 
         $id = $request->id;
-        $validated['status_peminjam']="sudah dikembalikan";
+        $validated['status_peminjam'] = "sudah dikembalikan";
         Peminjaman::where('id', $id)->update($validated);
 
         // Process the form data (you can save it to a database or perform any other logic)

@@ -61,6 +61,7 @@
                                 <thead>
                                     <tr>
                                         <th>judul</th>
+                                        <th>Nama Peminjam</th>
                                         <th>Tgl Pinjam</th>
                                         <th>Tgl Pengembalian</th>
                                         <th>Rating</th>
@@ -160,6 +161,10 @@
                         name: 'judul'
                     },
                     {
+                        data: 'nama_peminjam',
+                        name: 'nama_peminjam'
+                    },
+                    {
                         data: 'tgl_pinjam',
                         name: 'tgl_pinjam'
                     },
@@ -167,7 +172,7 @@
                         data: 'tgl_pengembalian',
                         name: 'tgl_pengembalian'
                     },
-                    {
+                    { 
                         data: 'rating',
                         name: 'rating'
                     },

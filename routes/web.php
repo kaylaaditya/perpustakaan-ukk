@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +22,8 @@ Route::view('/', 'welcome');
 
 
 
-// Route::view('register', 'login.register');
-// Route::view('laporan', 'layouts.laporan');
+// Route::view('tabelAdmin', 'login.tabel-register')->name('login.tabel-register');
+// Route::view('registerAdmin', 'login.registerAdmin')->name('login.registerAdmin');
 // Route::view('peminjam', 'layouts.tabel-pinjam');
 // Route::view('form-pinjam', 'layouts.form-pinjam');
 
@@ -52,4 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+    Route::get('/admin-register', [RegisterAdminController::class, 'index'])->name('login.tabel-register');
+    Route::post('/admin-register-store', [RegisterAdminController::class, 'store'])->name('registerAdmin');
 });
