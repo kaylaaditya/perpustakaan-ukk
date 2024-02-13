@@ -119,7 +119,7 @@
               </div>
               <div class="form-group">
                     <label class="form-label">Tanggal Pengembalian</label>
-                    <input type="date" class="form-control" name="tgl_pengembalian">
+                    <input type="date" class="form-control" name="tgl_pengembalian" value="{{ now()->addDays()->format('Y-m-d') }}" readonly>
               </div>
               <div class="form-group">
                     <label class="form-label">Rating</label>

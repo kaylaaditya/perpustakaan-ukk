@@ -55,7 +55,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-    Route::get('/admin-register', [RegisterAdminController::class, 'index'])->name('login.tabel-register');
+    Route::get('/register-admin', [RegisterAdminController::class, 'index'])->name('login.tabel-register');
 
     Route::get('/admin-register-create', [RegisterAdminController::class, 'create'])->name('registerAdmin.create');
     Route::post('/admin-register-store', [RegisterAdminController::class, 'store'])->name('registerAdmin.store');

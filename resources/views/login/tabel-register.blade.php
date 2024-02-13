@@ -65,6 +65,7 @@
                                         <th>Nama Lengkap</th>
                                         <th>Alamat</th>
                                         <th>User Type</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -128,6 +129,18 @@
                     {
                         data: 'user_type',
                         name: 'user_type'
+                    },
+                    {
+                        data: null,
+                        defaultContent: `<div class="btn-group" role="group">
+                    </button>
+                    <button class="btn btn-primary btn-xs ml-1" name="editBtn">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-xs ml-1" name="deleteBtn">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>`,
                     },
                     //     {
                     //         data: null,
