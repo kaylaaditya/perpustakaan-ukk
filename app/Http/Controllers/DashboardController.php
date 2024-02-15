@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -18,6 +20,21 @@ class DashboardController extends Controller
         $data = auth()->user();
 
         return view('admin', ['data' => $data]);
+    }
+
+    public function apiDashboard()
+    {
+        $jumlahBuku = Buku::count();
+        $jumlahUser = User::count();
+        $jumlahPeminjaman = Peminjaman::count();
+
+        $data = [
+            'jumlah_buku' => $jumlahBuku,
+            'jumlah_user' => $jumlahUser,
+            'jumlah_peminjaman' => $jumlahPeminjaman,
+        ];
+
+        return response()->json($data);
     }
 
     /**
