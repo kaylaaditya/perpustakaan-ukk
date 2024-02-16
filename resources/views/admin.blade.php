@@ -34,53 +34,50 @@
             <section class="content">
                 <div class="container-fluid">
 
-                    <div class="row" id="data">
+                    <div class="row">
                         <div class="col-lg-3 col-6">
 
-                            <div class="small-box bg-info">
+                            <div class="small-box bg-info" id="small-box-user">
                                 <div class="inner">
-                                    <!-- <h3>150</h3> -->
+                                    <h3>-</h3>
                                     <p>Data User</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="login.tabel-register" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
                         <div class="col-lg-3 col-6">
 
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-success" id="small-box-buku">
                                 <div class="inner">
-                                    <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
+                                    <h3>-</h3>
                                     <p>Data Buku</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
                         <div class="col-lg-3 col-6">
 
-                            <div class="small-box bg-warning">
+                            <div class="small-box bg-warning" id="small-box-peminjam">
                                 <div class="inner">
-                                    <!-- <h3>44</h3> -->
+                                    <h3>-</h3>
                                     <p>Peminjaman</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="content">
-                        <div class="row align-items-center justify-content-center" style="height: 60vh">
+                        <div class="row align-items-center justify-content-center" style="height: 30vh">
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-header text-center">Selamat datang di aplikasi PERPUS WEB</div>
@@ -128,40 +125,23 @@
                     <strong>Copyright &copy; 2024 </strong> All rights reserved.
                 </footer>
         </div>
+</section>
 
         <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
         <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
 
         <script>
-            $(document).ready(function() {
-            var t = $('#data').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('api.dashboard') !!}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'judul',
-                        name: 'judul'
-                    },
-                    {
-                        data: 'tgl_pengembalian',
-                        name: 'tgl_pengembalian'
-                    },
-                    {
-                        data: 'rating',
-                        name: 'rating'
-                    },
-                    {
-                        data: 'ulasan',
-                        name: 'ulasan'
-                    },
-                ],
+            $(document).ready(function(){
+                const response = fetch("{{ route('api.dashboard') }}", {
+                    method: 'GET'
+                });
+                response.then(res => res.json()).then(d => {
+                    $('#small-box-user h3').text(d['jumlah_user'])
+                    $('#small-box-buku h3').text(d['jumlah_buku'])
+                    $('#small-box-peminjam h3').text(d['jumlah_peminjaman']);
+                });
             });
-
         </script>
 
 </body>
