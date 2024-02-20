@@ -71,7 +71,7 @@
                                         @foreach ($kategoribukurelasi as $kbr)
                                         @if($kbr->id == $kategori->id)
                                         @php
-                                        $selected - true;
+                                        $selected = true;
                                         @endphp
                                         <option value="{{ $kategori->id }}" selected>{{ $kategori->nama_kategori }}</option>
                                         @endif
