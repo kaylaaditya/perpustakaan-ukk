@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\KategoriBuku;
+use App\Models\KategoriBukuRelasi;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,11 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('layouts.form-data');
+        $kategoribuku = KategoriBuku::select('*')->get();;
+        $data = [
+            'kategoribuku' => $kategoribuku,
+        ];
+        return view('layouts.form-data', $data);
     }
 
     /**
@@ -53,6 +59,7 @@ class BukuController extends Controller
             'tahun_terbit' => 'required|numeric',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'stok' => 'required',
+            'kategori_buku' => 'required',
 
         ]);
 
@@ -66,6 +73,13 @@ class BukuController extends Controller
         }
 
         $buku->save();
+
+        $daftar_kategori = $request->kategori;
+        for ($i = 0; $i < count($daftar_kategori); $i++) {
+            $data_relasi['kategori_id'] = $daftar_kategori[$i];
+            $data_relasi['buku_id'] = $buku->id;
+            KategoriBukuRelasi::create($data_relasi);
+        }
 
         return redirect()->route('layouts.tabel-data')->with('success', 'Buku berhasil ditambahkan');
     }
@@ -91,9 +105,12 @@ class BukuController extends Controller
     {
         $id = $request->id;
         $buku = Buku::findOrFail($id);
+        $kategoribuku = KategoriBuku::select('*')->get();;
         $data = [
+            'kategoribuku' => $kategoribuku,
             'buku' => $buku
         ];
+
 
         return view('layouts.edit', $data);
     }
@@ -114,6 +131,7 @@ class BukuController extends Controller
             'tahun_terbit' => 'required|numeric',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'stok' => 'required',
+            'kategori_buku' => 'required',
         ]);
 
         $buku = Buku::findOrFail($id);
@@ -126,6 +144,14 @@ class BukuController extends Controller
             $foto->move(public_path('images/books'), $fotoName);
             $buku->foto = $fotoName;
             $buku->save();
+
+            KategoriBukuRelasi::where('buku_id', $buku->id)->delete(); // hapus dulu kategori yang lama
+            $daftar_kategori = $request->kategori;
+            for ($i = 0; $i < count($daftar_kategori); $i++) {
+                $data_relasi['kategori_id'] = $daftar_kategori[$i];
+                $data_relasi['buku_id'] = $buku->id;
+                KategoriBukuRelasi::create($data_relasi);
+            }
         }
 
         return redirect('/tabel1')->with('success', 'Buku berhasil diperbarui');

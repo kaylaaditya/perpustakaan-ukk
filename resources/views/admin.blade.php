@@ -106,43 +106,44 @@
                     </div>
 
                 </div>
-
-
-
-                <aside class="control-sidebar control-sidebar-dark">
-
-                    <div class="p-3">
-                        <h5>Title</h5>
-                        <p>Sidebar content</p>
-                    </div>
-                </aside>
-
-                <footer class="main-footer">
-                    <div class="float-right d-none d-sm-inline">
-                        Version 1.0.1
-                    </div>
-
-                    <strong>Copyright &copy; 2024 </strong> All rights reserved.
-                </footer>
+            </section>
         </div>
-</section>
 
-        <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-        <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
 
-        <script>
-            $(document).ready(function(){
-                const response = fetch("{{ route('api.dashboard') }}", {
-                    method: 'GET'
-                });
-                response.then(res => res.json()).then(d => {
-                    $('#small-box-user h3').text(d['jumlah_user'])
-                    $('#small-box-buku h3').text(d['jumlah_buku'])
-                    $('#small-box-peminjam h3').text(d['jumlah_peminjaman']);
-                });
+        <aside class="control-sidebar control-sidebar-dark">
+
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-inline">
+                Version 1.0.1
+            </div>
+
+            <strong>Copyright &copy; 2024 </strong> All rights reserved.
+        </footer>
+    </div>
+
+
+    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
+
+    <script>
+        $(document).ready(function() {
+            const response = fetch("{{ route('api.dashboard') }}", {
+                method: 'GET'
             });
-        </script>
+            response.then(res => res.json()).then(d => {
+                $('#small-box-user h3').text(d['jumlah_user'])
+                $('#small-box-buku h3').text(d['jumlah_buku'])
+                $('#small-box-peminjam h3').text(d['jumlah_peminjaman']);
+            });
+        });
+    </script>
 
 </body>
 

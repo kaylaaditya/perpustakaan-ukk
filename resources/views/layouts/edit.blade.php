@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0">
+    <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -60,6 +61,14 @@
                                     <p class="mt-2">Stok</p>
                                     <input type="text" class="form-control" id="stok" name="stok" required value="{{$buku->stok}}">
                                 </div>
+                                <div class="class">
+                                    <p class="mt-2">Kategori</p>
+                                    <select name="kategori[]" id="kategori" required>
+                                        @foreach ($kategoribuku as $kategori)
+                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
 
                                 <div class="modal-footer justify-content-between">
@@ -103,6 +112,7 @@
     <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
+    <script src="/adminlte/plugins/select2/js/select2.min.js"></script>
 
 </body>
 

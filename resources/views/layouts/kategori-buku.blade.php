@@ -27,17 +27,17 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h1 class="m-0">Data User</h1>
+                            <h1 class="m-0">Kategori Buku</h1>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8 d-flex justify-content-start align-items-center">
-                            <a href="{{ route('registerAdmin.create')  }}" class="btn btn-primary btn-sm mt-2">
-                                <i class="fas fa-plus"></i> Tambah User
+                            <a href="{{ route('layouts.form-data')  }}" class="btn btn-primary btn-sm mt-2">
+                                <i class="fas fa-plus"></i> Tambah Data
                             </a>
                         </div>
 
-                        <!-- <div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="input-group mt-3">
                                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                                 <div class="input-group-append">
@@ -46,7 +46,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,15 +56,11 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover table-striped" id="register-table">
+                            <table class="table table-hover table-striped" id="kategori-table">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>username</th>
-                                        <th>email</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Alamat</th>
-                                        <th>User Type</th>
+                                        <th>ID</th>
+                                        <th>Nama</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -101,34 +97,17 @@
     <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var t = $('#register-table').DataTable({
+            var t = $('#kategori-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{!! route('api.register') !!}",
+                ajax: "{!! route('api.kategori.buku') !!}",
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
-
                     {
-                        data: 'username',
-                        name: 'username'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'nama_lengkap',
-                        name: 'nama_lengkap'
-                    },
-                    {
-                        data: 'alamat',
-                        name: 'alamat'
-                    },
-                    {
-                        data: 'user_type',
-                        name: 'user_type'
+                        data: 'nama_kategori',
+                        name: 'nama_kategori'
                     },
                     {
                         data: null,
@@ -142,27 +121,15 @@
                     </button>
                 </div>`,
                     },
-                    //     {
-                    //         data: null,
-                    //         defaultContent: `<div class="btn-group" role="group">
-                    //     </button>
-                    //     <button class="btn btn-primary btn-xs ml-1" name="editBtn">
-                    //         <i class="fa fa-edit"></i>
-                    //     </button>
-                    //     <button class="btn btn-danger btn-xs ml-1" name="deleteBtn">
-                    //         <i class="fa fa-trash"></i>
-                    //     </button>
-                    // </div>`,
-                    //     },
                 ],
             });
 
-            $('#register-table tbody').on('click', 'button[name="editBtn"]', function() {
+            $('#buku-table tbody').on('click', 'button[name="editBtn"]', function() {
                 var data = t.row($(this).parents('tr')).data(); // var data per row
-                window.location = "{{ route('register.edit') }}?id=" + data['id'];
+                window.location = "{{ route('buku.edit') }}?id=" + data['id'];
             });
 
-            $('#register-table tbody').on('click', 'button[name="deleteBtn"]', function() {
+            $('#buku-table tbody').on('click', 'button[name="deleteBtn"]', function() {
                 var data = t.row($(this).parents('tr')).data();
                 if (confirm(`Apakah anda yakin mau menghapus buku ini
             Judul: ${data['judul']}
@@ -177,13 +144,12 @@
                         }
                     });
                     response.then(res => res.json()).then(d => {
-                        window.location = "{!! route('layouts.tabel-register') !!}";
+                        window.location = "{!! route('layouts.tabel-data') !!}";
                     });
                 }
             });
         });
     </script>
-
 
 
 

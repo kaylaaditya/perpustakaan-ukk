@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\RegisterController;
@@ -34,19 +35,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/logout', 'LoginController@logout')->name('logout');
 
     Route::get('/admin', 'DashboardController@index')->name('admin');
+
     Route::get('/tabel1', 'BukuController@index')->name('layouts.tabel-data');
-    // Route::resource('buku', BukuController::class);
     Route::get('buku/edit', 'BukuController@edit')->name('buku.edit');
     Route::post('buku/update/{id}', 'BukuController@update')->name('buku.update');
     Route::delete('buku/delete/{id}', 'BukuController@delete')->name('buku.delete');
-
-
     Route::get('/form', [BukuController::class, 'create'])->name('layouts.form-data');
     Route::post('/form', [BukuController::class, 'store']);
 
     Route::get('/tambah-pinjam', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/tambah-pinjam', [PeminjamanController::class, 'store'])->name('peminjaman.store');
-
     Route::get('/peminjam', 'PeminjamanController@index')->name('layouts.tabel-pinjam');
     Route::post('/pengembalian/saveData', 'PeminjamanController@saveData')->name('pengembalian.saveData');
 
@@ -56,9 +54,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
     Route::get('/register-admin', [RegisterAdminController::class, 'index'])->name('login.tabel-register');
-
     Route::get('/admin-register-create', [RegisterAdminController::class, 'create'])->name('registerAdmin.create');
     Route::post('/admin-register-store', [RegisterAdminController::class, 'store'])->name('registerAdmin.store');
+    Route::get('register/edit', 'BukuController@edit')->name('register.edit');
 
     Route::get('/ulasan', [UlasanController::class, 'index'])->name('layouts.tabel-ulasan');
+
+    Route::get('/kategori-tabel', 'KategoriBukuController@index')->name('layouts.kategori-buku');
+    Route::post('kategori/update/{id}', 'KategoriBukuController@update')->name('kategori.update');
+    Route::delete('kategori/delete/{id}', 'KategoriBukuController@delete')->name('kategori.delete');
+    Route::post('/formKategori', [KategoriBukuController::class, 'store']);
 });
