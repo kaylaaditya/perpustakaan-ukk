@@ -63,9 +63,22 @@
                                 </div>
                                 <div class="class">
                                     <p class="mt-2">Kategori</p>
-                                    <select name="kategori[]" id="kategori" required>
+                                    <select name="kategori[]" id="kategori" required multiple class="form-control">
+                                        @php
+                                        $selected = false;
+                                        @endphp
                                         @foreach ($kategoribuku as $kategori)
+                                        @foreach ($kategoribukurelasi as $kbr)
+                                        @if($kbr->id == $kategori->id)
+                                        @php
+                                        $selected - true;
+                                        @endphp
+                                        <option value="{{ $kategori->id }}" selected>{{ $kategori->nama_kategori }}</option>
+                                        @endif
+                                        @endforeach
+                                        @if($selected == false)
                                         <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -113,6 +126,9 @@
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
     <script src="/adminlte/plugins/select2/js/select2.min.js"></script>
+    <script>
+        $("#kategori").select2({});
+    </script>
 
 </body>
 

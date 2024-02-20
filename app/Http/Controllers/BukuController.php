@@ -59,7 +59,7 @@ class BukuController extends Controller
             'tahun_terbit' => 'required|numeric',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'stok' => 'required',
-            'kategori_buku' => 'required',
+            'kategori' => 'required',
 
         ]);
 
@@ -105,8 +105,10 @@ class BukuController extends Controller
     {
         $id = $request->id;
         $buku = Buku::findOrFail($id);
-        $kategoribuku = KategoriBuku::select('*')->get();;
+        $kategoribuku = KategoriBuku::select('*')->get();
+        $kategoribukurelasi = KategoriBukuRelasi::where('buku_id', $id)->get();
         $data = [
+            'kategoribukurelasi' => $kategoribukurelasi,
             'kategoribuku' => $kategoribuku,
             'buku' => $buku
         ];
@@ -131,7 +133,7 @@ class BukuController extends Controller
             'tahun_terbit' => 'required|numeric',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'stok' => 'required',
-            'kategori_buku' => 'required',
+            'kategori' => 'required',
         ]);
 
         $buku = Buku::findOrFail($id);

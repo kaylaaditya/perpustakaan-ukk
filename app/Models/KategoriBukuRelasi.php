@@ -9,6 +9,8 @@ class KategoriBukuRelasi extends Model
 {
     use HasFactory;
 
+    public $table = 'kategori_buku_relasi';
+
     public $fillable = [
         'buku_id',
         'kategori_id',
