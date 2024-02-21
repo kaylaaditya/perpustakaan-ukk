@@ -177,7 +177,7 @@
                         }
                     });
                     response.then(res => res.json()).then(d => {
-                        window.location = "{!! route('layouts.tabel-register') !!}";
+                        window.location = "{!! route('login.tabel-register') !!}";
                     });
                 }
             });

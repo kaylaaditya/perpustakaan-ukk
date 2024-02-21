@@ -34,7 +34,7 @@
             <section class="content">
                 <div class="container-fluid">
 
-                    <div class="row">
+                    <div class="row align-items-center justify-content-center" style="height: 30vh">
                         <div class="col-lg-3 col-6">
 
                             <div class="small-box bg-info" id="small-box-user">

@@ -69,7 +69,7 @@
                                         @endphp
                                         @foreach ($kategoribuku as $kategori)
                                         @foreach ($kategoribukurelasi as $kbr)
-                                        @if($kbr->id == $kategori->id)
+                                       @if($kbr->kategori_id == $kategori->id)
                                         @php
                                         $selected = true;
                                         @endphp

@@ -66,6 +66,7 @@
                                         <th>Penerbit</th>
                                         <th>Tahun Terbit</th>
                                         <th>Stok</th>
+                                        <th>Jenis Kategori</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -134,6 +135,10 @@
                     {
                         data: 'stok',
                         name: 'stok'
+                    },
+                    {
+                        data: 'nama_kategori',
+                        name: 'nama_kategori'
                     },
                     {
                         data: null,

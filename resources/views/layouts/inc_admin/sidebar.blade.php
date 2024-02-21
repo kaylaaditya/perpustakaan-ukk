@@ -64,6 +64,12 @@
                         <p>Data User</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{!! route('layouts.kategori-buku') !!}" class="nav-link {{ Request::is('kategori-tabel*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Data Kategori</p>
+                    </a>
+                </li>
                 @endif
             </ul>
         </nav>

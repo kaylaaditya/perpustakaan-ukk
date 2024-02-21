@@ -24,7 +24,10 @@ class BukuController extends Controller
     {
         $buku = Buku::selectRaw("id, judul, penulis, penerbit, tahun_terbit, foto, 
         concat(stok - (select count(*) from peminjaman where buku.id=buku_id 
-        and tgl_pengembalian is null), '/', stok) stok");
+        and tgl_pengembalian is null), '/', stok) stok")
+            ->leftJoin('kategori_buku_relasi', 'buku_id', '=', 'buku.id')
+            ->leftJoin('kategori_buku', 'kategori_id', '=', 'kategori_buku.id')
+            ->select('buku.*', 'kategori_buku.nama_kategori');
         return datatables()->of($buku)->toJson();
     }
 
