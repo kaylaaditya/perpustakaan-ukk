@@ -27,7 +27,7 @@ class BukuController extends Controller
         and tgl_pengembalian is null), '/', stok) stok")
             ->leftJoin('kategori_buku_relasi', 'buku_id', '=', 'buku.id')
             ->leftJoin('kategori_buku', 'kategori_id', '=', 'kategori_buku.id')
-            ->select('buku.*', 'kategori_buku.nama_kategori');
+            ->select('buku.*', 'kategori_buku.nama_kategori')->get();
         return datatables()->of($buku)->toJson();
     }
 

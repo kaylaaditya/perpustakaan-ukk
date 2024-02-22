@@ -37,7 +37,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="input-group mt-3">
                                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                                 <div class="input-group-append">
@@ -46,7 +46,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
