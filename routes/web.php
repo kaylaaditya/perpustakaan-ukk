@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriBukuController;
+use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\RegisterController;
@@ -64,4 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('kategori/update/{id}', 'KategoriBukuController@update')->name('kategori.update');
     Route::delete('kategori/delete/{id}', 'KategoriBukuController@delete')->name('kategori.delete');
     Route::post('/formKategori', [KategoriBukuController::class, 'store']);
+
+    Route::get('/tabel-koleksi', 'BukuController@index')->name('layouts.tabel-koleksi');
+    Route::post('/form-koleksi', [KoleksiController::class, 'store'])->name('koleksi.store');
 });
