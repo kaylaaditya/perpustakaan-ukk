@@ -56,6 +56,12 @@
                         <p>Ulasan</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{!! route('layouts.tabel-koleksi') !!}" class="nav-link {{ Request::is('tabel-koleksi*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Koleksi Buku</p>
+                    </a>
+                </li>
                 @endif
                 @if(auth()->user()->user_type==='admin')
                 <li class="nav-item">

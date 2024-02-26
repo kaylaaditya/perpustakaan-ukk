@@ -22,12 +22,12 @@ class BukuController extends Controller
 
     public function apiBuku()
     {
-        $buku = Buku::selectRaw("id, judul, penulis, penerbit, tahun_terbit, foto, 
+        $buku = Buku::selectRaw("buku.id, judul, penulis, penerbit, tahun_terbit, foto, 
         concat(stok - (select count(*) from peminjaman where buku.id=buku_id 
-        and tgl_pengembalian is null), '/', stok) stok")
+        and tgl_pengembalian is null), '/', stok) stok, kategori_buku.nama_kategori")
             ->leftJoin('kategori_buku_relasi', 'buku_id', '=', 'buku.id')
-            ->leftJoin('kategori_buku', 'kategori_id', '=', 'kategori_buku.id')
-            ->select('buku.*', 'kategori_buku.nama_kategori')->get();
+            ->leftJoin('kategori_buku', 'kategori_id', '=', 'kategori_buku.id')->get();
+        // ->select('buku.*', 'kategori_buku.nama_kategori')->get();
         return datatables()->of($buku)->toJson();
     }
 

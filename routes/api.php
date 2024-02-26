@@ -29,6 +29,7 @@ Route::get('pinjamSelect', 'PeminjamanController@apiBukuSelect')->name('api.sele
 Route::get('registerAdmin', 'RegisterAdminController@apiRegister')->name('api.register');
 Route::get('ulasan', 'UlasanController@apiUlasan')->name('api.ulasan');
 Route::get('dataDashboard', 'DashboardController@apiDashboard')->name('api.dashboard');
+Route::get('dataKoleksi', 'KoleksiController@apiKoleksi')->name('api.koleksi');
 
 
 

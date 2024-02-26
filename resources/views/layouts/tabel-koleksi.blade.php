@@ -56,7 +56,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover table-striped" id="buku-table">
+                            <table class="table table-hover table-striped" id="koleksi-table">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -103,10 +103,10 @@
     <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var t = $('#buku-table').DataTable({
+            var t = $('#koleksi-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{!! route('api.buku') !!}",
+                ajax: "{!! route('api.koleksi',['user_id' => auth()->user()->id]) !!}",
                 columns: [{
                         data: 'id',
                         name: 'id'

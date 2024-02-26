@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Peminjam|PERPUSWEB</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -137,7 +138,7 @@
                             <textarea name="ulasan" class="form-control"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-lg btn-link" id="lovebtn"><i class="fa fa-heart text-danger"></i></button>
+                            <button type="button" class="btn btn-lg btn-link" id="lovebtn"><i class="fa fa-heart"></i></button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">kembalikan</button>
                             {{-- <button type="button" class="btn btn-primary" data-dismiss="modal"><a href="{{ route('form3') }}"></a> Pinjam</button> --}}
@@ -153,76 +154,81 @@
 
     <script>
         $(document).ready(function() {
-        var t = $('#peminjaman-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{!! route('api.pinjam', ['id' => auth()->user()->id]) !!}",
-            columns: [{
-                    data: 'judul',
-                    name: 'judul'
-                },
-                {
-                    data: 'nama_peminjam',
-                    name: 'nama_peminjam'
-                },
-                {
-                    data: 'tgl_pinjam',
-                    name: 'tgl_pinjam'
-                },
-                {
-                    data: 'tgl_pengembalian',
-                    name: 'tgl_pengembalian'
-                },
-                // { 
-                //     data: 'rating',
-                //     name: 'rating'
-                // },
-                {
-                    data: 'status_peminjam',
-                    name: 'status_peminjam'
-                },
-                {
-                    render: function(data, type, row) {
-                        if (row['tgl_pengembalian'] == null) {
-                            return `<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" name="previewBtn">
+            var t = $('#peminjaman-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{!! route('api.pinjam', ['id' => auth()->user()->id]) !!}",
+                columns: [{
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'nama_peminjam',
+                        name: 'nama_peminjam'
+                    },
+                    {
+                        data: 'tgl_pinjam',
+                        name: 'tgl_pinjam'
+                    },
+                    {
+                        data: 'tgl_pengembalian',
+                        name: 'tgl_pengembalian'
+                    },
+                    // { 
+                    //     data: 'rating',
+                    //     name: 'rating'
+                    // },
+                    {
+                        data: 'status_peminjam',
+                        name: 'status_peminjam'
+                    },
+                    {
+                        render: function(data, type, row) {
+                            if (row['tgl_pengembalian'] == null) {
+                                return `<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" name="previewBtn">
     Kembalikan
 </button>`;
-                        } else {
-                            return '';
+                            } else {
+                                return '';
+                            }
                         }
-                    }
-                },
-            ]
-        });
-        $('#exampleModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var data = t.row(button.parents('tr')).data();
-            var modal = $(this);
-            modal.find('[name="judul"]').val(data['judul']);
-            modal.find('[name="id"]').val(data['id']);
-            modal.find('[name="buku_id"]').val(data['buku_id']);
-            modal.find('[name="tgl_pinjam"]').val(data['tgl_pinjam']);
-        })
-        $('#lovebtn').on('click', function(event) {
-            var modal = $('#exampleModal');
-            var buku_id = modal.find('[name="buku_id"]').val();
-            var user_id = "{{ auth()->user()->id }}";
-            var data = {
-                'user_id': user_id,
-                'buku_id': buku_id
-            }
-            const response = fetch("{{ route('koleksi.store') }}", {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                body: JSON.stringify(data)
+                    },
+                ]
             });
-            response.then(res => res.json()).then(d => {
-                alert('Buku telah dimasukkan ke koleksi')
+            $('#exampleModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var data = t.row(button.parents('tr')).data();
+                var modal = $(this);
+                modal.find('[name="judul"]').val(data['judul']);
+                modal.find('[name="id"]').val(data['id']);
+                modal.find('[name="buku_id"]').val(data['buku_id']);
+                modal.find('[name="tgl_pinjam"]').val(data['tgl_pinjam']);
+                if (data['koleksi'])
+                    modal.find('#lovebtn i').addClass('text-danger');
+                else
+                    modal.find('#lovebtn i').addClass('text-danger');
+
             })
-        })
+            $('#lovebtn').on('click', function(event) {
+                var modal = $('#exampleModal');
+                var buku_id = modal.find('[name="buku_id"]').val();
+                var user_id = "{{ auth()->user()->id }}";
+                var data = {
+                    'user_id': user_id,
+                    'buku_id': buku_id
+                }
+                const response = fetch("{{ route('koleksi.store') }}", {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify(data)
+                });
+                response.then(res => res.json()).then(d => {
+                    alert('Buku telah dimasukkan ke koleksi')
+                })
+            })
 
         });
     </script>

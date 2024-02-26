@@ -66,6 +66,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::delete('kategori/delete/{id}', 'KategoriBukuController@delete')->name('kategori.delete');
     Route::post('/formKategori', [KategoriBukuController::class, 'store']);
 
-    Route::get('/tabel-koleksi', 'BukuController@index')->name('layouts.tabel-koleksi');
+    Route::get('/tabel-koleksi', 'KoleksiController@index')->name('layouts.tabel-koleksi');
     Route::post('/form-koleksi', [KoleksiController::class, 'store'])->name('koleksi.store');
 });

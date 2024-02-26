@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
 use App\Models\KategoriBuku;
+use App\Models\KoleksiPribadi;
 use Illuminate\Http\Request;
 
 class KoleksiController extends Controller
@@ -35,13 +37,29 @@ class KoleksiController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'user_id' => 'required',
             'buku_id' => 'required',
         ]);
-        KategoriBuku::create($request->all());
+        KoleksiPribadi::create($request->all());
 
         return response()->json(['success' => true]);
+    }
+
+    public function apiKoleksi(Request $request)
+    {
+        $user_id = $request->user_id;
+        $buku =  Buku::selectRaw("buku.id, judul, penulis, penerbit, tahun_terbit, foto, 
+        concat(stok - (select count(*) from peminjaman where buku.id=buku_id 
+        and tgl_pengembalian is null), '/', stok) stok, kategori_buku.nama_kategori")
+            ->leftJoin('kategori_buku_relasi', 'buku_id', '=', 'buku.id')
+            ->leftJoin('kategori_buku', 'kategori_id', '=', 'kategori_buku.id')
+            ->join('koleksi_pribadi', 'buku.id', '=', 'koleksi_pribadi.buku_id')
+            ->where('user_id', $user_id)
+            ->get();
+        // ->select('buku.*', 'kategori_buku.nama_kategori')->get();
+        return datatables()->of($buku)->toJson();
     }
 
     /**

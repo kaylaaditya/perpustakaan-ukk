@@ -9,6 +9,8 @@ class KoleksiPribadi extends Model
 {
     use HasFactory;
 
+    public $table = 'koleksi_pribadi';
+
     public $fillable = [
         'user_id',
         'buku_id',

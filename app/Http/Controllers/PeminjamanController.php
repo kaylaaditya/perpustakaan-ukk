@@ -23,8 +23,12 @@ class PeminjamanController extends Controller
     public function apiPinjam(Request $request)
     {
         $queryId = $request->query('id');
-        $pinjam = Peminjaman::select('peminjaman.*', 'judul')
-            ->join('buku', 'buku.id', 'buku_id')
+        $pinjam = Peminjaman::selectRaw('peminjaman.*, judul, koleksi_pribadi.buku_id is not null as koleksi')
+            ->join('buku', 'buku.id', ' peminjaman.buku_id')
+            ->leftJoin('koleksi_pribadi', function ($join) {
+                $join->on('koleksi_pribadi.user_id', '=', 'peminjaman.user_id')
+                     ->on('koleksi_pribadi.buku_id', '=', 'buku.id');
+            })
             ->where('user_id', $queryId);
 
 
