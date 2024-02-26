@@ -68,4 +68,5 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/tabel-koleksi', 'KoleksiController@index')->name('layouts.tabel-koleksi');
     Route::post('/form-koleksi', [KoleksiController::class, 'store'])->name('koleksi.store');
+    Route::post('koleksi/delete', 'KoleksiController@destroy')->name('koleksi.destroy');
 });

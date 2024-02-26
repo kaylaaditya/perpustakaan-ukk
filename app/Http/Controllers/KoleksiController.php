@@ -102,8 +102,13 @@ class KoleksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user_id = $request->user_id;
+        $buku_id = $request->buku_id;
+        $buku = KoleksiPribadi::where('user_id', $user_id)->where('buku_id', $buku_id);
+        $buku->delete();
+
+        return ['success' => true];
     }
 }

@@ -24,12 +24,12 @@ class PeminjamanController extends Controller
     {
         $queryId = $request->query('id');
         $pinjam = Peminjaman::selectRaw('peminjaman.*, judul, koleksi_pribadi.buku_id is not null as koleksi')
-            ->join('buku', 'buku.id', ' peminjaman.buku_id')
+            ->join('buku', 'buku.id', 'peminjaman.buku_id')
             ->leftJoin('koleksi_pribadi', function ($join) {
                 $join->on('koleksi_pribadi.user_id', '=', 'peminjaman.user_id')
                      ->on('koleksi_pribadi.buku_id', '=', 'buku.id');
             })
-            ->where('user_id', $queryId);
+            ->where('peminjaman.user_id', $queryId);
 
 
         return datatables()->of($pinjam)->toJson();

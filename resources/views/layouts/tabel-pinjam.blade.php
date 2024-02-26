@@ -140,7 +140,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-lg btn-link" id="lovebtn"><i class="fa fa-heart"></i></button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-primary">kembalikan</button>
+                            <button type="submit" name="submitBtn" class="btn btn-primary">kembalikan</button>
                             {{-- <button type="button" class="btn btn-primary" data-dismiss="modal"><a href="{{ route('form3') }}"></a> Pinjam</button> --}}
                         </div>
                     </div>
@@ -189,7 +189,9 @@
     Kembalikan
 </button>`;
                             } else {
-                                return '';
+                                return `<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" name="previewBtn">
+    Info
+</button>`;
                             }
                         }
                     },
@@ -206,18 +208,31 @@
                 if (data['koleksi'])
                     modal.find('#lovebtn i').addClass('text-danger');
                 else
-                    modal.find('#lovebtn i').addClass('text-danger');
+                    modal.find('#lovebtn i').removeClass('text-danger');
+
+                if (data['tgl_pengembalian'] == null) {
+                    modal.find("[name='submitBtn']").attr('disabled', true);
+                } else {
+                    modal.find("[name='submitBtn']").attr('disabled', false);
+                }
 
             })
             $('#lovebtn').on('click', function(event) {
                 var modal = $('#exampleModal');
+                var is_loved = modal.find('#lovebtn i').hasClass('text-danger');
                 var buku_id = modal.find('[name="buku_id"]').val();
                 var user_id = "{{ auth()->user()->id }}";
+                var url = "";
+                if (is_loved)
+                    url = "{{ route('koleksi.destroy') }}?user_id=" + user_id + "&buku_id=" + buku_id;
+                else
+                    url = "{{ route('koleksi.store') }}";
                 var data = {
                     'user_id': user_id,
                     'buku_id': buku_id
                 }
-                const response = fetch("{{ route('koleksi.store') }}", {
+                const response = fetch(url, {
+                    url: "{{ route('koleksi.store') }}",
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
@@ -226,7 +241,13 @@
                     body: JSON.stringify(data)
                 });
                 response.then(res => res.json()).then(d => {
-                    alert('Buku telah dimasukkan ke koleksi')
+                    if (is_loved) {
+                        modal.find('#lovebtn i').removeClass('text-danger');
+                        alert('Buku telah dikeluarkan dari koleksi')
+                    } else {
+                        modal.find('#lovebtn i').addClass('text-danger');
+                        alert('Buku telag dimasukkan dari koleksi')
+                    }
                 })
             })
 
