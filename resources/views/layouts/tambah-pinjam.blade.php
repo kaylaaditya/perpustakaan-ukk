@@ -37,8 +37,17 @@
                             <div class="card-body">
                                 {{-- <p>User Id</p> --}}
                                 <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
+                                <p class="mt-2">Kategori</p>
+                                <select name="kategori" id="kategori" class="form-control" >
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach ($kategoribuku as $kategori)
+                                    <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                    @endforeach
+                                </select>
+
                                 <p>Buku Id</p>
                                 <select name="buku_id" id="buku_id" class="form-control"></select>
+
                                 <p>Nama Peminjam</p>
                                 <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" required readonly value="{{ auth()->user()->nama_lengkap }}">
 
@@ -90,15 +99,26 @@
 
 
 
+    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
-    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
     <script src="/adminlte/plugins/select2/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#buku_id").select2({
+            var queryKategoriId = "";
+            $('#kategori').on('change', function(event) {
+                queryKategoriId = $(this).children("option:selected").val();
+            });
+            var selectbuku = $("#buku_id").select2({
                 ajax: {
                     url: "{{ route('api.select.pinjam') }}",
+                    data: function(params) {
+                            var query = {
+                                q: params.term,
+                                kategori_id: queryKategoriId
+                            }
+                            return query;
+                        },
                     processResults: function(data, page) {
                         let _data = data.map((d) => {
                             return {

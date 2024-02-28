@@ -211,9 +211,27 @@
                     modal.find('#lovebtn i').removeClass('text-danger');
 
                 if (data['tgl_pengembalian'] == null) {
-                    modal.find("[name='submitBtn']").attr('disabled', true);
+                    modal.find("[name='submitBtn']").prop('disabled', false);
                 } else {
-                    modal.find("[name='submitBtn']").attr('disabled', false);
+                    modal.find("[name='submitBtn']").prop('disabled', true);
+                }
+
+                if (data['tgl_pengembalian'] == null) {
+                    modal.find("[name='rating']").prop('disabled', false);
+                } else {
+                    modal.find("[name='rating']").prop('disabled', true);
+                }
+
+                if (data['tgl_pengembalian'] == null) {
+                    modal.find("[name='ulasan']").prop('disabled', false);
+                } else {
+                    modal.find("[name='ulasan']").prop('disabled', true);
+                }
+
+                if (data['tgl_pengembalian'] == null) {
+                    modal.find("[name='tgl_pengembalian']").val(aweek);
+                } else {
+                    modal.find("[name='tgl_pengembalian']").val(data['tgl_pengembalian']) ;
                 }
 
             })

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\KategoriBuku;
 use App\Models\Peminjaman;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -42,7 +43,11 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        return view('layouts.tambah-pinjam');
+        $kategoribuku = KategoriBuku::select('*')->get();;
+        $data = [
+            'kategoribuku' => $kategoribuku,
+        ];
+        return view('layouts.tambah-pinjam', $data);
     }
 
     /**
@@ -69,18 +74,24 @@ class PeminjamanController extends Controller
     public function apiBukuSelect(Request $request)
     {
         $queryQ = $request->query('q');
+        $queryKategoriId= $request->query('kategori_id');
         if ($queryQ != null) {
-            $buku_list = Buku::where(function (Builder $queryQ) {
-                $queryQ->where(DB::raw("lower(judul)"), 'like', '%' . $queryQ . '%')
+            $buku_list = Buku::where(function (Builder $query) use($queryQ) {
+                $query->where(DB::raw("lower(judul)"), 'like', '%' . $queryQ . '%')
                     ->orWhere(DB::raw("lower(penulis)"), 'like', '%' . $queryQ . '%');
             })
                 ->whereRaw('stok > (select count(*) from peminjaman where buku.id=buku_id 
                 and tgl_pengembalian is null)')
                 ->orderBy('judul');
         } else {
-            $buku_list = Buku::orderBy('judul');
+            $buku_list = Buku::whereRaw('stok > (select count(*) from peminjaman where buku.id=buku_id and tgl_pengembalian is null)')
+            ->orderBy('judul');
         }
-        return $buku_list->get();
+        if($queryKategoriId != null) {
+            $buku_list->join('kategori_buku_relasi', 'kategori_buku_relasi.buku_id', '=', 'buku.id')
+            ->where('kategori_buku_relasi.kategori_id', $queryKategoriId);
+        }
+        return $buku_list->selectRaw("buku.id, judul, penulis, penerbit, tahun_terbit, foto, concat(stok -(select count(*) from peminjaman where buku.id=buku_id and tgl_pengembalian is null), '/', stok) stok")->get();
     }
 
     public function saveData(Request $request)
