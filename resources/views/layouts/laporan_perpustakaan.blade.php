@@ -32,7 +32,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                <div class="col-md-8 d-flex align-items-center mr-auto">
+                    <a href="#" class="btn btn-primary btn-sm mt-2">
+                        <i class="fas fa-plus"></i> Cetak Laporan
+                    </a>
+                </div>
             </div>
+
+            </div>
+            
 
             <div class="content">
                 <div class="container-fluid">

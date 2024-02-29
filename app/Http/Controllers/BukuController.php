@@ -188,4 +188,6 @@ class BukuController extends Controller
     {
         return view('layouts.laporan_perpustakaan');
     }
+
+    
 }

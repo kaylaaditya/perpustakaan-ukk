@@ -212,27 +212,17 @@
 
                 if (data['tgl_pengembalian'] == null) {
                     modal.find("[name='submitBtn']").prop('disabled', false);
-                } else {
-                    modal.find("[name='submitBtn']").prop('disabled', true);
-                }
-
-                if (data['tgl_pengembalian'] == null) {
                     modal.find("[name='rating']").prop('disabled', false);
-                } else {
-                    modal.find("[name='rating']").prop('disabled', true);
-                }
-
-                if (data['tgl_pengembalian'] == null) {
                     modal.find("[name='ulasan']").prop('disabled', false);
-                } else {
-                    modal.find("[name='ulasan']").prop('disabled', true);
-                }
-
-                if (data['tgl_pengembalian'] == null) {
+                    var aweek = "{{ now()->addDays(7)->format('Y-m-d') }}"
                     modal.find("[name='tgl_pengembalian']").val(aweek);
                 } else {
+                    modal.find("[name='submitBtn']").prop('disabled', true);
+                    modal.find("[name='rating']").prop('disabled', true);
+                    modal.find("[name='ulasan']").prop('disabled', true);
                     modal.find("[name='tgl_pengembalian']").val(data['tgl_pengembalian']) ;
                 }
+
 
             })
             $('#lovebtn').on('click', function(event) {
