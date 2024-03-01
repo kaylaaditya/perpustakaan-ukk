@@ -1,0 +1,52 @@
+body { 
+    padding-top: 10px; 
+    overflow-x: hidden;
+    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    header {
+    background-image: url('/images/bg-perpus1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    text-align: center;
+    color: white;
+    }
+    header .light-background {
+        background-color: white;
+    }
+    header .intro-text {
+    padding-top: 10px;
+    padding-bottom: 250px;
+    min-height: 100vh;
+    }
+    header .intro-text .intro-lead-in {
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 22px;
+    margin-bottom: 25px;
+    }
+    header .intro-text h2 {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 50px;
+    margin-bottom: 25px;
+    }
+
+    .btn-xl {
+    color: white;
+    background-color: #25a115;
+    border-color: #25a115;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 20px 40px;
+    }
