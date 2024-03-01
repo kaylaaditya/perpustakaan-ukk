@@ -214,7 +214,7 @@
                     modal.find("[name='submitBtn']").prop('disabled', false);
                     modal.find("[name='rating']").prop('disabled', false);
                     modal.find("[name='ulasan']").prop('disabled', false);
-                    var aweek = "{{ now()->addDays(7)->format('Y-m-d') }}"
+                    var aweek = "{{ now()->format('Y-m-d') }}"
                     modal.find("[name='tgl_pengembalian']").val(aweek);
                 } else {
                     modal.find("[name='submitBtn']").prop('disabled', true);

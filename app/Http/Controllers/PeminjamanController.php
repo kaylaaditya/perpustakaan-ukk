@@ -95,7 +95,7 @@ class PeminjamanController extends Controller
     }
 
     public function saveData(Request $request)
-    {
+    { 
         // Validate the form data
         $validated = $request->validate([
             'tgl_pengembalian' => 'required',
