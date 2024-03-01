@@ -2,128 +2,138 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard|PERPUSWEB</title>
+    <title>Laporan|PERPUSWEB</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0">
-    <link rel="stylesheet" href="adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-spacing: 0;
+        }
+
+        .table td,
+        .table th {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead tr {
+            background-color: rgb(96 165 250);
+        }
+
+        .table tbody tr {
+            background-color: rgb(241 245 249);
+            font-size: smaller;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+        }
+
+        .table tbody+tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .card {
+            margin: 15px;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, 0.125);
+            border-radius: 4px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-header {
+            margin-bottom: 0;
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .text-title {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+        .w-half {
+            width: 50%;
+        }
+        .margin-top {
+            margin-top: 1.25rem;
+        }
+    </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-
-        <!-- Navbar -->
-        @include('layouts.inc_admin.navbar')
-
-        <!-- main sidebar container -->
-        @include('layouts.inc_admin.sidebar')
-
-
-        <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <h1 class="m-0">Laporan</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 d-flex align-items-center mr-auto">
-                        <a href="#" class="btn btn-primary btn-sm mt-2">
-                            <i class="fas fa-plus"></i> Cetak Pdf
-                        </a>
-                    </div>
-                </div>
-
+<body>
+    <div class="w-full">
+        <div class="card">
+            <div class="card-header">
+                <table class="w-full">
+                    <tr>
+                        <td class="text-title w-full">
+                            <h2>Perpusweb</h2>
+                        </td>
+                    </tr>
+                </table>
             </div>
-
-
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-hover table-striped" id="laporan-table">
-                                <thead>
-                                    <tr>
-
-                                        <th>No.</th>
-                                        <th>Peminjam</th>
-                                        <th>Tgl Pinjam</th>
-                                        <th>Tgl pengembalian</th>
-                                        <th>Status Peminjam</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Peminjam</th>
+                            <th>Judul Buku</th>
+                            <th>Tgl Pinjam</th>
+                            <th>Tgl Pengembalian</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data_peminjaman as $data)
+                            <tr>
+                                <td>
+                                    {{ $data->id }}
+                                </td>
+                                <td>
+                                    {{ $data->nama_peminjam }}
+                                </td>
+                                <td>
+                                    {{ $data->judul }}
+                                </td>
+                                <td>
+                                    {{ $data->tgl_pinjam }}
+                                </td>
+                                <td>
+                                    {{ $data->tgl_pengembalian }}
+                                </td>
+                                <td>
+                                    {{ $data->status_peminjam }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 
-
-        <aside class="control-sidebar control-sidebar-dark">
-
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                Version 1.0.1
-            </div>
-
-            <strong>Copyright &copy; 2024 </strong> All rights reserved.
-        </footer>
     </div>
 
-    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
-    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#laporan-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('api.laporan') !!}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'nama_peminjam',
-                        name: 'nama_peminjam'
-                    },
-                    {
-                        data: 'tgl_pinjam',
-                        name: 'tgl_pinjam'
-                    },
-                    {
-                        data: 'tgl_pengembalian',
-                        name: 'tgl_pengembalian'
-                    },
-                    {
-                        data: 'status_peminjam',
-                        name: 'status_peminjam'
-                    },
-                ]
-            });
-        });
-    </script>
-
-
-    <body>
-
-    </body>
+</body>
 
 </html>

@@ -176,18 +176,6 @@ class BukuController extends Controller
         return ['success' => true];
     }
 
-    public function apiLaporan()
-    {
-        $dataPerpustakaan = Peminjaman::selectRaw('peminjaman.id, users.nama_lengkap as nama_peminjam, buku.judul, tgl_pinjam, tgl_pengembalian, status_peminjam')
-            ->join('buku', 'buku.id', '=', 'buku_id')
-            ->join('users', 'users.id', '=', 'user_id');
-        return datatables()->of($dataPerpustakaan)->toJson();
-    }
-
-    public function indexLaporan()
-    {
-        return view('layouts.laporan_perpustakaan');
-    }
-
+    
     
 }

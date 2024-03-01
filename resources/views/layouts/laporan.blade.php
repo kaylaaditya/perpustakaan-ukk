@@ -2,14 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laporan|PERPUSWEB</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard|PERPUSWEB</title>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css?v=3.2.0">
+    <link rel="stylesheet" href="adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -21,31 +22,24 @@
         <!-- main sidebar container -->
         @include('layouts.inc_admin.sidebar')
 
+
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h1 class="m-0">Generate Laporan</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 d-flex justify-content-start align-items-center">
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="input-group mt-3">
-                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-search fa-fw"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <h1 class="m-0">Laporan</h1>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-8 d-flex align-items-center mr-auto">
+                        <a href="{!! route('layouts.laporan-perpustakaan') !!}" class="btn btn-primary btn-sm mt-2">
+                            <i class="fas fa-plus"></i> Cetak Pdf
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
 
@@ -53,15 +47,15 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover table-striped">
+                            <table class="table table-hover table-striped" id="laporan-table">
                                 <thead>
                                     <tr>
+
                                         <th>No.</th>
                                         <th>Peminjam</th>
-                                        <th>Judul Buku</th>
                                         <th>Tgl Pinjam</th>
-                                        <th>Tgl Pengembalian</th>
-                                        <th>Status</th>
+                                        <th>Tgl pengembalian</th>
+                                        <th>Status Peminjam</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -93,7 +87,43 @@
     <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
     <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/adminlte/dist/js/adminlte.min.js?v=3.2.0"></script>
+    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
-</body>
+    <script>
+        $(document).ready(function() {
+            $('#laporan-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{!! route('api.laporan') !!}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nama_peminjam',
+                        name: 'nama_peminjam'
+                    },
+                    {
+                        data: 'tgl_pinjam',
+                        name: 'tgl_pinjam'
+                    },
+                    {
+                        data: 'tgl_pengembalian',
+                        name: 'tgl_pengembalian'
+                    },
+                    {
+                        data: 'status_peminjam',
+                        name: 'status_peminjam'
+                    },
+                ]
+            });
+        });
+    </script>
+
+
+    <body>
+
+    </body>
 
 </html>

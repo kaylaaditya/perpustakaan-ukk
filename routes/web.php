@@ -49,7 +49,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/peminjam', 'PeminjamanController@index')->name('layouts.tabel-pinjam');
     Route::post('/pengembalian/saveData', 'PeminjamanController@saveData')->name('pengembalian.saveData');
 
-    Route::get('/laporan_perpustakaan', 'BukuController@indexLaporan')->name('layouts.laporan_perpustakaan');
 
     Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
@@ -70,7 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/form-koleksi', [KoleksiController::class, 'store'])->name('koleksi.store');
     Route::post('koleksi/delete', 'KoleksiController@destroy')->name('koleksi.destroy');
 
-    Route::post('/laporan2', 'LaporanController@generatePDF')->name('generate.pdf');
-    Route::get('/pdf', 'LaporanController@index')->name('layouts.pdf');
+    Route::get('/laporan_perpustakaan/pdf', 'LaporanController@generatePDF')->name('layouts.laporan-perpustakaan');
+    Route::get('/laporan_perpustakaan', 'LaporanController@index')->name('layouts.laporan_perpustakaan');
     // Route::post('koleksi/delete', 'KoleksiController@destroy')->name('koleksi.destroy');
 });

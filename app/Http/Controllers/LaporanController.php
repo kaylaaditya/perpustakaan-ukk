@@ -10,22 +10,37 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        return view('layouts.pdf');
+        return view('layouts.laporan');
 
     }
 
     public function generatePDF()
     {
         // Data contoh untuk laporan
-        $dataPerpustakaan = Peminjaman::selectRaw('peminjaman.id, users.nama_lengkap as nama_peminjam, buku.judul, tgl_pinjam, tgl_pengembalian, status_peminjam')
+        $data_peminjaman = Peminjaman::selectRaw('peminjaman.id, users.nama_lengkap as nama_peminjam, buku.judul, tgl_pinjam, tgl_pengembalian, status_peminjam')
         ->join('buku', 'buku.id', '=', 'buku_id')
-        ->join('users', 'users.id', '=', 'user_id'); 
+        ->join('users', 'users.id', '=', 'user_id')->get(); 
         $data = [
-            'laporan_perpustakaan' => $dataPerpustakaan,
+            'data_peminjaman' => $data_peminjaman,
         ];
 
         // Tampilkan laporan PDF
-        $pdf = PDF::loadView('laporan', $data);
+        $pdf = PDF::loadView('layouts.pdf', $data);
         return $pdf->download('laporan_perpusweb.pdf');
     }
+
+    public function apiLaporan()
+    {
+        $dataPerpustakaan = Peminjaman::selectRaw('peminjaman.id, users.nama_lengkap as nama_peminjam, buku.judul, tgl_pinjam, tgl_pengembalian, status_peminjam')
+            ->join('buku', 'buku.id', '=', 'buku_id')
+            ->join('users', 'users.id', '=', 'user_id');
+        return datatables()->of($dataPerpustakaan)->toJson();
+    }
+
+    // public function indexLaporan()
+    // {
+    //     return view('layouts.laporan_perpustakaan');
+    // }
+
+
 }
